@@ -1,0 +1,175 @@
+Atividade Prática: Desenvolvimento de
+Sistema Web Completo com React e
+Supabase
+Introdução
+Esta atividade tem como objetivo proporcionar aos alunos a experiência de
+desenvolver um sistema web completo, utilizando tecnologias modernas e
+amplamente utilizadas no mercado: React para o frontend e Supabase como backend
+as a service. O projeto será desenvolvido em grupos, incentivando a colaboração e a
+aplicação prática dos conhecimentos adquiridos em autenticação, operações CRUD
+(Create, Read, Update, Delete) e outras funcionalidades essenciais.
+Temas Propostos
+A seguir, são apresentados 8 temas modernos para o desenvolvimento dos sistemas.
+Cada grupo deverá escolher um tema e implementá-lo, garantindo a inclusão de
+funcionalidades de autenticação e CRUD, além de outras funcionalidades específicas
+do tema.
+Requisitos Técnicos
+Para a realização desta atividade, os grupos deverão seguir os seguintes requisitos
+técnicos:
+Frontend: React (com Create React App, Vite ou Next.js)
+Backend: Supabase (Autenticação, Banco de Dados, Armazenamento)
+Gerenciamento de Estado: (Opcional) Redux, Zustand, Context API, etc.
+Estilização: (Opcional) Tailwind CSS, Styled Components, Material-UI, Chakra UI,
+CSS Modules, etc.
+Critérios de Avaliação
+O projeto será avaliado com base nos seguintes critérios:
+Funcionalidade: Implementação correta das funcionalidades de autenticação e
+CRUD, além das funcionalidades específicas do tema escolhido.
+Qualidade do Código: Organização, legibilidade, modularidade e boas práticas
+de programação.
+Experiência do Usuário (UX): Usabilidade, design intuitivo e responsividade da
+interface.
+Documentação: README.md claro e completo, explicando como configurar e
+executar o projeto, e descrevendo as funcionalidades implementadas.
+Apresentação: Demonstração do sistema em funcionamento e explicação das
+escolhas técnicas.
+Instruções para Entrega
+Os grupos deverão entregar:
+1. Um link para o repositório do GitHub contendo todo o código-fonte do projeto.
+2. Um link para a aplicação deployada (ex: Vercel, Netlify, Render).
+3. Um vídeo curto (até 5 minutos) demonstrando as principais funcionalidades do
+sistema.
+Conclusão
+Esta atividade é uma excelente oportunidade para consolidar seus conhecimentos em
+desenvolvimento web full-stack, trabalhando em equipe e criando uma aplicação real
+com tecnologias de ponta. Bom trabalho a todos!
+1. Plataforma de Gestão de Conteúdo para Blog Corporativo
+(ContentFlow Pro)
+Descrição: Um sistema completo para empresas gerenciarem seu blog, desde a
+criação de posts até a análise de desempenho, com foco em SEO e engajamento.
+Autenticação: Autenticação de autores/editores (diferentes níveis de acesso),
+login/logout, recuperação de senha.
+CRUD:
+C (Create): Criar e agendar posts, categorias, tags.
+R (Read): Visualizar posts (rascunhos, publicados), estatísticas de acesso,
+comentários.
+U (Update): Editar posts, gerenciar categorias/tags, aprovar/rejeitar
+comentários.
+D (Delete): Excluir posts, categorias, tags, comentários.
+Funcionalidades Adicionais: Editor de texto rico, pré-visualização de posts,
+integração com ferramentas de SEO (ex: Yoast SEO), agendamento de
+publicações, dashboard de métricas (visualizações, compartilhamentos).
+2. CRM Simplificado para Pequenas Empresas (ClientConnect)
+Descrição: Um sistema de Customer Relationship Management (CRM) para
+pequenas empresas gerenciarem leads, clientes, interações e histórico de
+vendas.
+Autenticação: Autenticação de vendedores/gerentes, login/logout, gestão de
+permissões.
+CRUD:
+C (Create): Adicionar novos leads/clientes, registrar interações (chamadas,
+e-mails, reuniões), criar tarefas de acompanhamento.
+R (Read): Visualizar perfil completo do cliente, histórico de interações,
+pipeline de vendas.
+U (Update): Atualizar informações do cliente, status do lead, registrar novas
+interações, marcar tarefas como concluídas.
+D (Delete): Remover leads/clientes (com justificativa), excluir interações.
+Funcionalidades Adicionais: Lembretes de follow-up, segmentação de clientes,
+relatórios de vendas, integração com e-mail marketing.
+3. Plataforma de E-commerce para Produtos Artesanais (CraftyShop)
+Descrição: Uma loja online completa para artesãos venderem seus produtos,
+com gerenciamento de estoque, pedidos e clientes.
+Autenticação: Autenticação de vendedores (para gerenciar a loja) e clientes
+(para compras), login/logout.
+CRUD:
+C (Create): Vendedores: Adicionar produtos (nome, descrição, preço,
+estoque, imagens, categorias). Clientes: Criar pedidos.
+R (Read): Vendedores: Visualizar produtos, pedidos, clientes. Clientes:
+Navegar por produtos, ver detalhes, histórico de pedidos.
+U (Update): Vendedores: Editar produtos, atualizar status de pedidos,
+gerenciar estoque. Clientes: Atualizar informações de perfil.
+D (Delete): Vendedores: Remover produtos, cancelar pedidos. Clientes:
+Remover itens do carrinho.
+Funcionalidades Adicionais: Carrinho de compras, sistema de pagamento
+(simulado), busca por produtos, avaliações de produtos, cupons de desconto.
+4. Sistema de Agendamento e Gestão de Eventos (EventFlow)
+Descrição: Uma plataforma para empresas organizarem e gerenciarem eventos
+(webinars, workshops, conferências), desde a criação do evento até a gestão de
+inscrições e participantes.
+Autenticação: Autenticação de organizadores de eventos e participantes,
+login/logout.
+CRUD:
+C (Create): Organizadores: Criar eventos (nome, data, local, descrição,
+capacidade). Participantes: Realizar inscrição em eventos.
+R (Read): Organizadores: Visualizar eventos criados, lista de inscritos.
+Participantes: Visualizar eventos disponíveis, detalhes, status da inscrição.
+U (Update): Organizadores: Editar detalhes do evento, gerenciar inscritos.
+Participantes: Cancelar inscrição.
+D (Delete): Organizadores: Cancelar eventos, remover inscritos.
+Funcionalidades Adicionais: Envio de e-mails de confirmação/lembrete,
+emissão de ingressos (digitais), formulário de feedback pós-evento, integração
+com calendário.
+5. Plataforma de Gerenciamento de Campanhas de Marketing
+(CampaignHub)
+Descrição: Uma ferramenta para equipes de marketing planejarem, executarem
+e monitorarem campanhas de marketing digital (e-mail, redes sociais, anúncios).
+Autenticação: Autenticação de membros da equipe de marketing, login/logout,
+controle de acesso por função.
+CRUD:
+C (Create): Criar novas campanhas (nome, objetivo, orçamento, canais),
+adicionar tarefas à campanha.
+R (Read): Visualizar campanhas ativas/finalizadas, progresso das tarefas,
+métricas de desempenho.
+U (Update): Editar detalhes da campanha, atualizar status de tarefas,
+ajustar orçamento.
+D (Delete): Arquivar/excluir campanhas, remover tarefas.
+Funcionalidades Adicionais: Dashboard de métricas em tempo real, integração
+com APIs de redes sociais (simulado), agendamento de posts/e-mails, relatórios
+de ROI.
+6. Sistema de Feedback e Avaliação de Produtos/Serviços
+(FeedbackLoop)
+Descrição: Uma plataforma para empresas coletarem feedback de clientes sobre
+seus produtos ou serviços, com funcionalidades de pesquisa, análise e resposta.
+Autenticação: Autenticação de administradores/analistas de feedback e
+usuários (para enviar feedback), login/logout.
+CRUD:
+C (Create): Administradores: Criar formulários de feedback/pesquisas.
+Usuários: Enviar feedback.
+R (Read): Administradores: Visualizar feedbacks recebidos, estatísticas,
+tendências. Usuários: Visualizar seus feedbacks enviados.
+U (Update): Administradores: Responder a feedbacks, categorizar, alterar
+status (resolvido/pendente).
+D (Delete): Administradores: Excluir feedbacks (com justificativa).
+Funcionalidades Adicionais: Análise de sentimento (simulado), gráficos de
+feedback, filtros por categoria/data, sistema de notificação para novos
+feedbacks.
+7. Portal de Notícias e Artigos para Indústria Específica
+(IndustryPulse)
+Descrição: Um portal de notícias e artigos focado em um nicho de mercado
+específico, com funcionalidades de publicação, categorização e busca.
+Autenticação: Autenticação de editores/jornalistas e leitores, login/logout.
+CRUD:
+C (Create): Editores: Publicar novos artigos, notícias, entrevistas.
+R (Read): Leitores: Navegar por artigos, buscar por tópicos, ver mais lidos.
+Editores: Visualizar rascunhos/publicados.
+U (Update): Editores: Editar artigos, atualizar categorias/tags.
+D (Delete): Editores: Remover artigos.
+Funcionalidades Adicionais: Assinatura de newsletter, comentários em artigos,
+artigos relacionados, busca avançada, integração com redes sociais para
+compartilhamento.
+8. Plataforma de Gestão de Reservas para Espaços Compartilhados
+(SpaceBooker)
+Descrição: Um sistema para gerenciar a reserva de espaços compartilhados
+(salas de reunião, escritórios, estúdios) em um coworking ou empresa.
+Autenticação: Autenticação de administradores (para gerenciar espaços) e
+usuários (para fazer reservas), login/logout.
+CRUD:
+C (Create): Administradores: Adicionar novos espaços (nome, capacidade,
+recursos). Usuários: Fazer reservas de espaços.
+R (Read): Administradores: Visualizar todos os espaços e suas reservas.
+Usuários: Visualizar espaços disponíveis, suas reservas.
+U (Update): Administradores: Editar detalhes do espaço, gerenciar
+reservas. Usuários: Cancelar/modificar reservas.
+D (Delete): Administradores: Remover espaços, cancelar reservas. Usuários:
+Cancelar reservas.
+Funcionalidades Adicionais: Calendário de disponibilidade, notificações de
+reserva, regras de uso do espaço, relatórios de ocupação.
