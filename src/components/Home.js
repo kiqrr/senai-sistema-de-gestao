@@ -1,22 +1,13 @@
-import React from 'react'
-import Header from '../components/Header'
-import HeroSection from '../components/HeroSection'
-import FeaturesSection from '../components/FeaturesSection'
-import AboutSection from '../components/AboutSection'
-import CTASection from '../components/CTASection'
-import Footer from '../components/Footer'
+import Header from "./Header";
 
-function Home() {
+export default function Home() {
   return (
-    <>
+    <div>
       <Header />
-      <HeroSection />
-      <FeaturesSection />
-      <AboutSection />
-      <CTASection />
-      <Footer />
-    </>
-  )
+      <main className="p-6">
+        <h1 className="text-2xl">Bem-vindo ao EventFlow 🎉</h1>
+        <p>Gerencie e participe de eventos facilmente.</p>
+      </main>
+    </div>
+  );
 }
-
-export default Home
