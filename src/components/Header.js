@@ -1,16 +1,42 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import supabase from "../supabaseClient";
 
 export default function Header() {
   const [user, setUser] = useState(null);
+  const [role, setRole] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const session = supabase.auth.getSession();
-    session.then(({ data }) => setUser(data?.session?.user || null));
+    async function loadUser() {
+      const { data: sessionData } = await supabase.auth.getSession();
+      const authUser = sessionData?.session?.user || null;
+      setUser(authUser);
+
+      if (authUser) {
+        const { data: userData } = await supabase
+          .from("users")
+          .select("role")
+          .eq("id", authUser.id)
+          .single();
+        setRole(userData?.role || null);
+      }
+    }
+
+    loadUser();
 
     const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
       setUser(session?.user || null);
+      if (session?.user) {
+        supabase
+          .from("users")
+          .select("role")
+          .eq("id", session.user.id)
+          .single()
+          .then(({ data }) => setRole(data?.role || null));
+      } else {
+        setRole(null);
+      }
     });
 
     return () => listener.subscription.unsubscribe();
@@ -19,6 +45,8 @@ export default function Header() {
   const handleLogout = async () => {
     await supabase.auth.signOut();
     setUser(null);
+    setRole(null);
+    navigate("/");
   };
 
   return (
@@ -31,7 +59,15 @@ export default function Header() {
             <Link to="/signup">Sign Up</Link>
           </>
         ) : (
-          <button onClick={handleLogout}>Logout</button>
+          <>
+            {role === "organizer" && (
+              <Link to="/dashboard" className="mr-4">Dashboard</Link>
+            )}
+            {role === "participant" && (
+              <Link to="/events" className="mr-4">Eventos</Link>
+            )}
+            <button onClick={handleLogout}>Logout</button>
+          </>
         )}
       </nav>
     </header>
