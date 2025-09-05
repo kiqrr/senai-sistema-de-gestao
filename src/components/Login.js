@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import supabase from "../supabaseClient";
+import "./Auth.css";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -10,7 +11,6 @@ export default function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    // Login no Supabase Auth
     const { data, error } = await supabase.auth.signInWithPassword({ email, password: senha });
     if (error) {
       alert(error.message);
@@ -18,8 +18,6 @@ export default function Login() {
     }
 
     const userId = data.user.id;
-
-    // Buscar role do usuário na tabela "users"
     const { data: userData, error: userError } = await supabase
       .from("users")
       .select("role")
@@ -31,7 +29,6 @@ export default function Login() {
       return;
     }
 
-    // Redirecionar baseado no role
     if (userData.role === "organizer") {
       navigate("/dashboard");
     } else {
@@ -40,25 +37,33 @@ export default function Login() {
   };
 
   return (
-    <form onSubmit={handleLogin} className="p-6">
-      <h2 className="text-xl">Login</h2>
-      <input
-        className="border p-2 block my-2"
-        type="email"
-        placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <input
-        className="border p-2 block my-2"
-        type="password"
-        placeholder="Senha"
-        value={senha}
-        onChange={(e) => setSenha(e.target.value)}
-      />
-      <button type="submit" className="bg-blue-500 text-white px-4 py-2">
-        Entrar
-      </button>
-    </form>
+    <div className="auth-container">
+      <form onSubmit={handleLogin} className="auth-form">
+        <button type="button" className="back-button" onClick={() => navigate(-1)}>
+          ⬅ Voltar
+        </button>
+        <h2 className="auth-title">Login</h2>
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="auth-input"
+        />
+        <input
+          type="password"
+          placeholder="Senha"
+          value={senha}
+          onChange={(e) => setSenha(e.target.value)}
+          className="auth-input"
+        />
+        <button type="submit" className="auth-button login-button">
+          Entrar
+        </button>
+        <p className="auth-link-text">
+          Não tem conta? <Link to="/signup" className="auth-link">Cadastre-se</Link>
+        </p>
+      </form>
+    </div>
   );
 }

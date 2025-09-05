@@ -1,5 +1,6 @@
 import { useState } from "react";
 import supabase from "../supabaseClient";
+import "./Dashboard.css";
 
 export default function EventForm({ onSaved }) {
   const [nome, setNome] = useState("");
@@ -22,19 +23,19 @@ export default function EventForm({ onSaved }) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="p-4 border mb-4">
-      <h3 className="text-lg">Criar Evento</h3>
-      <input className="border p-2 block my-2" placeholder="Nome"
+    <form onSubmit={handleSubmit} className="event-form">
+      <h3 className="event-form-title">Criar Evento</h3>
+      <input className="event-input" placeholder="Nome"
         value={nome} onChange={(e) => setNome(e.target.value)} />
-      <input className="border p-2 block my-2" type="date"
+      <input className="event-input" type="date"
         value={data} onChange={(e) => setData(e.target.value)} />
-      <input className="border p-2 block my-2" placeholder="Local"
+      <input className="event-input" placeholder="Local"
         value={local} onChange={(e) => setLocal(e.target.value)} />
-      <textarea className="border p-2 block my-2" placeholder="Descrição"
+      <textarea className="event-input textarea" placeholder="Descrição"
         value={descricao} onChange={(e) => setDescricao(e.target.value)} />
-      <input className="border p-2 block my-2" type="number" placeholder="Capacidade"
+      <input className="event-input" type="number" placeholder="Capacidade"
         value={capacidade} onChange={(e) => setCapacidade(e.target.value)} />
-      <button type="submit" className="bg-blue-500 text-white px-4 py-2">Salvar</button>
+      <button type="submit" className="event-button">Salvar</button>
     </form>
   );
 }

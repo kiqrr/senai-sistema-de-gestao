@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import supabase from "../supabaseClient";
 import Header from "./Header";
 import EventForm from "./EventForm";
+import "./Dashboard.css";
 
 export default function Dashboard() {
   const [events, setEvents] = useState([]);
@@ -22,16 +23,22 @@ export default function Dashboard() {
   return (
     <div>
       <Header />
-      <div className="p-6">
-        <h2 className="text-2xl mb-4">Meu Dashboard</h2>
+      <div className="dashboard-container">
+        <h2 className="dashboard-title">Meu Dashboard</h2>
         <EventForm onSaved={fetchMyEvents} />
-        <h3 className="text-xl mt-6">Meus Eventos</h3>
-        {events.map(ev => (
-          <div key={ev.id} className="border p-4 mb-2">
-            <h3>{ev.nome}</h3>
-            <p>{ev.descricao}</p>
-          </div>
-        ))}
+
+        <h3 className="dashboard-subtitle">Meus Eventos</h3>
+        <div className="events-grid">
+          {events.map((ev) => (
+            <div key={ev.id} className="event-card">
+              <h3 className="event-card-title">{ev.nome}</h3>
+              <p className="event-card-desc">{ev.descricao}</p>
+              <p><b>Data:</b> {ev.data}</p>
+              <p><b>Local:</b> {ev.local}</p>
+              <p><b>Capacidade:</b> {ev.capacidade}</p>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

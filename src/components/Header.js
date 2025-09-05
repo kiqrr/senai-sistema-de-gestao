@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import supabase from "../supabaseClient";
+import "./Header.css"; // Importando o CSS externo
 
 export default function Header() {
   const [user, setUser] = useState(null);
@@ -50,26 +51,43 @@ export default function Header() {
   };
 
   return (
-    <header className="p-4 bg-gray-200 flex justify-between">
-      <Link to="/">EventFlow</Link>
-      <nav>
-        {!user ? (
-          <>
-            <Link to="/login" className="mr-4">Login</Link>
-            <Link to="/signup">Sign Up</Link>
-          </>
-        ) : (
-          <>
-            {role === "organizer" && (
-              <Link to="/dashboard" className="mr-4">Dashboard</Link>
-            )}
-            {role === "participant" && (
-              <Link to="/events" className="mr-4">Eventos</Link>
-            )}
-            <button onClick={handleLogout}>Logout</button>
-          </>
-        )}
-      </nav>
+    <header className="header">
+      <div className="header-container">
+        {/* Logo */}
+        <Link to="/" className="logo">
+          EventFlow
+        </Link>
+
+        {/* Nav */}
+        <nav className="nav">
+          {!user ? (
+            <>
+              <Link to="/login" className="btn btn-login">
+                Login
+              </Link>
+              <Link to="/signup" className="btn btn-signup">
+                Sign Up
+              </Link>
+            </>
+          ) : (
+            <>
+              {role === "organizer" && (
+                <Link to="/dashboard" className="nav-link">
+                  Dashboard
+                </Link>
+              )}
+              {role === "participant" && (
+                <Link to="/events" className="nav-link">
+                  Eventos
+                </Link>
+              )}
+              <button onClick={handleLogout} className="btn btn-logout">
+                Logout
+              </button>
+            </>
+          )}
+        </nav>
+      </div>
     </header>
   );
 }

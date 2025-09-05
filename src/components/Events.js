@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import supabase from "../supabaseClient";
 import Header from "./Header";
+import "./Dashboard.css";
 
 export default function Events() {
   const [events, setEvents] = useState([]);
@@ -94,71 +95,62 @@ export default function Events() {
   return (
     <div>
       <Header />
-      <div className="p-6">
-        <h2 className="text-2xl mb-4">Eventos Disponíveis</h2>
+      <div className="dashboard-container">
+        <h2 className="dashboard-title">Eventos Disponíveis</h2>
 
-        {events.map((ev) => (
-          <div key={ev.id} className="border p-4 mb-4 rounded">
-            <h3 className="text-xl font-bold">{ev.nome}</h3>
-            <p>{ev.descricao}</p>
-            <p>
-              <b>Data:</b> {ev.data}
-            </p>
-            <p>
-              <b>Local:</b> {ev.local}
-            </p>
-            <p>
-              <b>Organizador:</b> {ev.users?.nome}
-            </p>
+        <div className="events-grid">
+          {events.map((ev) => (
+            <div key={ev.id} className="event-card">
+              <h3 className="event-card-title">{ev.nome}</h3>
+              <p className="event-card-desc">{ev.descricao}</p>
+              <p><b>Data:</b> {ev.data}</p>
+              <p><b>Local:</b> {ev.local}</p>
+              <p><b>Organizador:</b> {ev.users?.nome}</p>
 
-            {/* Botão de registro */}
-            {!registrations.includes(ev.id) ? (
-              <button
-                onClick={() => handleRegister(ev.id)}
-                className="bg-green-500 text-white px-4 py-2 mt-2 rounded"
-              >
-                Registrar-se
-              </button>
-            ) : (
-              <p className="text-green-600 mt-2">✅ Você está registrado neste evento</p>
-            )}
-
-            {/* Form de feedback só para quem está registrado */}
-            {registrations.includes(ev.id) && (
-              <form
-                onSubmit={(e) => handleFeedback(e, ev.id)}
-                className="mt-4"
-              >
-                <textarea
-                  className="border p-2 w-full mb-2"
-                  placeholder="Deixe seu feedback..."
-                  value={feedbacks[ev.id] || ""}
-                  onChange={(e) =>
-                    setFeedbacks((prev) => ({
-                      ...prev,
-                      [ev.id]: e.target.value,
-                    }))
-                  }
-                />
+              {!registrations.includes(ev.id) ? (
                 <button
-                  type="submit"
-                  className="bg-blue-500 text-white px-4 py-2 rounded"
+                  onClick={() => handleRegister(ev.id)}
+                  className="event-button green"
                 >
-                  Enviar Feedback
+                  Registrar-se
                 </button>
-              </form>
-            )}
+              ) : (
+                <p className="registered-text">✅ Você está registrado neste evento</p>
+              )}
 
-            {!user && (
-              <button
-                onClick={() => navigate("/login")}
-                className="bg-gray-400 text-white px-4 py-2 mt-2 rounded"
-              >
-                Faça login para registrar-se e enviar feedback
-              </button>
-            )}
-          </div>
-        ))}
+              {registrations.includes(ev.id) && (
+                <form
+                  onSubmit={(e) => handleFeedback(e, ev.id)}
+                  className="feedback-form"
+                >
+                  <textarea
+                    className="event-input textarea"
+                    placeholder="Deixe seu feedback..."
+                    value={feedbacks[ev.id] || ""}
+                    onChange={(e) =>
+                      setFeedbacks((prev) => ({
+                        ...prev,
+                        [ev.id]: e.target.value,
+                      }))
+                    }
+                  />
+                  <button type="submit" className="event-button blue">
+                    Enviar Feedback
+                  </button>
+                </form>
+              )}
+
+              {!user && (
+                <button
+                  onClick={() => navigate("/login")}
+                  className="event-button gray"
+                >
+                  Faça login para registrar-se e enviar feedback
+                </button>
+              )}
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
