@@ -1,85 +1,192 @@
-Grupo:\
-Caique\
-Kleber\
-Alisson\
-Bruno\
-Juan\
-\
-Tema escolhido:\
-4. Sistema de Agendamento e Gestão de Eventos (EventFlow)\
-\
-Como iniciar o projeto:\
+# 🎉 EventFlow -- Sistema de Agendamento e Gestão de Eventos
 
-> cd senai-sistema-de-gestao\
-> npm start
+O **EventFlow** é uma plataforma simples desenvolvida com **React +
+Supabase** para organizar e gerenciar eventos (webinars, workshops,
+conferências).\
+O sistema permite que **organizadores** criem e administrem eventos,
+enquanto **participantes** podem se inscrever e enviar feedbacks.
 
-# Getting Started with Create React App
+------------------------------------------------------------------------
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## ✨ Funcionalidades
 
-## Available Scripts
+### 👤 Autenticação
 
-In the project directory, you can run:
+-   Cadastro e login de **Organizadores** e **Participantes**.
+-   Autenticação simples via Supabase (sem confirmação de e-mail).
+-   Logout e redirecionamento de acordo com a role:
+    -   **Organizador** → Dashboard.
+    -   **Participante** → Lista de eventos.
 
-### `npm start`
+### 📅 Participantes
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+-   Visualizar eventos públicos.
+-   Registrar-se em eventos.
+-   Cancelar inscrição.
+-   Enviar **1 feedback por evento**.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### 🛠️ Organizadores
 
-### `npm test`
+-   Criar eventos (nome, data, local, descrição, capacidade).
+-   Editar e excluir eventos.
+-   Visualizar lista de inscritos.
+-   Acompanhar feedbacks enviados.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 📌 Outras
 
-### `npm run build`
+-   Exibição pública de eventos e feedbacks recentes.
+-   Layout simples com React e CSS básico.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+------------------------------------------------------------------------
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 🗄️ Estrutura do Banco de Dados (Supabase)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Crie as tabelas no **SQL Editor** do Supabase:
 
-### `npm run eject`
+``` sql
+-- Usuários
+create table users (
+  id uuid primary key references auth.users(id) on delete cascade,
+  nome text not null,
+  email text not null unique,
+  role text check (role in ('organizer','participant')) not null
+);
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+-- Eventos
+create table events (
+  id uuid default uuid_generate_v4() primary key,
+  organizer_id uuid references users(id) on delete cascade,
+  nome text not null,
+  data date not null,
+  local text not null,
+  descricao text,
+  capacidade int
+);
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+-- Inscrições
+create table registrations (
+  id uuid default uuid_generate_v4() primary key,
+  event_id uuid references events(id) on delete cascade,
+  participant_id uuid references users(id) on delete cascade,
+  unique (event_id, participant_id)
+);
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+-- Feedbacks
+create table feedbacks (
+  id uuid default uuid_generate_v4() primary key,
+  event_id uuid references events(id) on delete cascade,
+  participant_id uuid references users(id) on delete cascade,
+  comentario text not null,
+  unique (event_id, participant_id)
+);
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+------------------------------------------------------------------------
 
-## Learn More
+## 📂 Estrutura de Pastas
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+    src/
+    ├── App.js
+    ├── supabaseClient.js
+    ├── components/
+    │   ├── Auth.css
+    │   ├── Header.js
+    │   ├── Header.css
+    │   ├── Home.js
+    │   ├── Home.css
+    │   ├── Login.js
+    │   ├── Signup.js
+    │   ├── Events.js
+    │   ├── Dashboard.js
+    │   ├── Dashboard.css
+    │   ├── EventForm.js
+    │   ├── EditEventForm.js
+    │   └── RegistrationsTable.js
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+------------------------------------------------------------------------
 
-### Code Splitting
+## 🚀 Como Rodar o Projeto
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### 1. Clonar o repositório
 
-### Analyzing the Bundle Size
+``` bash
+git clone https://github.com/kiqrr/senai-sistema-de-gestao.git
+cd eventflow
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### 2. Instalar dependências
 
-### Making a Progressive Web App
+``` bash
+npm install
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### 3. Configurar variáveis de ambiente
 
-### Advanced Configuration
+Crie um arquivo `.env.local` na raiz do projeto:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+    REACT_APP_SUPABASE_URL=https://xxxx.supabase.co
+    REACT_APP_SUPABASE_ANON_KEY=seu_anon_key
 
-### Deployment
+### 4. Rodar o projeto
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+``` bash
+npm start
+```
 
-### `npm run build` fails to minify
+------------------------------------------------------------------------
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## 🔑 Rotas do Sistema
+
+-   `/` → Página inicial (Home).
+-   `/signup` → Cadastro de usuários.
+-   `/login` → Login de usuários.
+-   `/events` → Página de eventos (Participante).
+-   `/dashboard` → Painel de controle (Organizador).
+
+------------------------------------------------------------------------
+
+## 👨‍💻 Tecnologias Utilizadas
+
+-   **React** (Vite ou CRA)
+-   **React Router DOM**
+-   **Supabase (Auth + Postgres Database)**
+-   **CSS puro**
+
+------------------------------------------------------------------------
+
+## 📸 Preview
+
+### Página Inicial
+
+-   Hero section
+-   Eventos públicos (até 3 destacados)
+-   Feedbacks recentes
+
+### Dashboard do Organizador
+
+-   Criar eventos
+-   Editar/excluir eventos
+-   Ver inscritos e feedbacks
+
+### Eventos do Participante
+
+-   Lista de eventos disponíveis
+-   Botão de registro
+-   Envio de feedback
+
+------------------------------------------------------------------------
+
+## 📜 Licença
+
+Este projeto é apenas para fins acadêmicos e não possui licença
+comercial.
+
+------------------------------------------------------------------------
+
+## 🧑‍💻👨‍🎓 Grupo
+
+-   Alisson - [@alissongaldino22](https://github.com/alissongaldino22)
+-   Bruno - [@br7trindade](https://github.com/br7trindade)
+-   Caique - [@kiqrr](https://github.com/kiqrr)
+-   Juan - [@juanpfr](https://github.com/juanpfr)
+-   Kleber - [@Kleberapenas](https://github.com/Kleberapenas)
