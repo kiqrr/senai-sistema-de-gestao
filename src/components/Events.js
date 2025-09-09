@@ -9,6 +9,8 @@ export default function Events() {
   const [user, setUser] = useState(null);
   const [registrations, setRegistrations] = useState([]);
   const [feedbacks, setFeedbacks] = useState({});
+  const [showPayment, setShowPayment] = useState(null);
+  const [appliedCoupon, setAppliedCoupon] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -19,7 +21,7 @@ export default function Events() {
   async function fetchEvents() {
     const { data, error } = await supabase
       .from("events")
-      .select("id, nome, descricao, data, local, users(nome)");
+      .select("id, nome, descricao, data, local, price, users(nome)");
     if (error) console.error(error);
     else setEvents(data);
   }
@@ -107,16 +109,19 @@ export default function Events() {
               <p><b>Local:</b> {ev.local}</p>
               <p><b>Organizador:</b> {ev.users?.nome}</p>
 
-              {!registrations.includes(ev.id) ? (
-                <button
-                  onClick={() => handleRegister(ev.id)}
-                  className="event-button green"
-                >
-                  Registrar-se
-                </button>
-              ) : (
-                <p className="registered-text">✅ Você está registrado neste evento</p>
-              )}
+      {!registrations.includes(ev.id) ? (
+        <button
+          onClick={() => {
+            handleRegister(ev.id);
+            alert("Registro realizado com sucesso!");
+          }}
+          className="event-button green"
+        >
+          {ev.price > 0 ? "Comprar Ingresso" : "Registrar-se (Grátis)"}
+        </button>
+      ) : (
+        <p className="registered-text">✅ Você está registrado neste evento</p>
+      )}
 
               {registrations.includes(ev.id) && (
                 <form
@@ -152,6 +157,10 @@ export default function Events() {
           ))}
         </div>
       </div>
+
+      {showPayment && (
+        <></>
+      )}
     </div>
   );
 }

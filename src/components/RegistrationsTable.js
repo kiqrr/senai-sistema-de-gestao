@@ -12,7 +12,7 @@ export default function RegistrationsTable({ event, onClose }) {
   async function fetchRegistrations() {
     const { data, error } = await supabase
       .from("registrations")
-      .select("id, users(nome, email)")
+      .select("id, users(nome, email), payment_status")
       .eq("event_id", event.id);
 
     if (!error) setRegistrations(data);
@@ -37,6 +37,7 @@ export default function RegistrationsTable({ event, onClose }) {
               <tr>
                 <th>Nome</th>
                 <th>Email</th>
+                <th>Pagamento</th>
                 <th>Ação</th>
               </tr>
             </thead>
@@ -45,6 +46,13 @@ export default function RegistrationsTable({ event, onClose }) {
                 <tr key={r.id}>
                   <td>{r.users.nome}</td>
                   <td>{r.users.email}</td>
+                  <td>
+                    <span className={`payment-status ${r.payment_status}`}>
+                      {r.payment_status === 'paid' ? '✅ Pago' :
+                       r.payment_status === 'pending' ? '⏳ Pendente' :
+                       r.payment_status === 'failed' ? '❌ Falhou' : 'N/A'}
+                    </span>
+                  </td>
                   <td>
                     <button
                       onClick={() => deleteRegistration(r.id)}

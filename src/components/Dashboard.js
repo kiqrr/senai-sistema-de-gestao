@@ -29,6 +29,14 @@ export default function Dashboard() {
       <Header />
       <div className="dashboard-container">
         <h2 className="dashboard-title">Meu Dashboard</h2>
+
+        <div className="dashboard-actions">
+          {/* Removed Financial Reports button as component is deleted */}
+          {/* <button onClick={() => setShowFinancialReports(true)} className="event-button blue">
+            Relatórios Financeiros
+          </button> */}
+        </div>
+
         <EventForm onSaved={fetchMyEvents} />
 
         <h3 className="dashboard-subtitle">Meus Eventos</h3>
@@ -48,6 +56,10 @@ export default function Dashboard() {
                 <button onClick={() => setSelectedEvent(ev)} className="event-btn">
                   Ver inscritos
                 </button>
+                {/* Removed Co-Organizadores button as component is deleted */}
+                {/* <button onClick={() => setManagingCoOrganizers(ev)} className="event-btn orange">
+                  Co-Organizadores
+                </button> */}
               </div>
             </div>
           ))}
@@ -69,6 +81,23 @@ export default function Dashboard() {
             onClose={() => setSelectedEvent(null)}
           />
         )}
+
+        {/* Relatórios Financeiros */}
+        {/* Removed FinancialReports component usage */}
+        {/* {showFinancialReports && (
+          <FinancialReports
+            onClose={() => setShowFinancialReports(false)}
+          />
+        )} */}
+
+        {/* Gerenciamento de Co-Organizadores */}
+        {/* Removed CoOrganizerManagement component usage */}
+        {/* {managingCoOrganizers && (
+          <CoOrganizerManagement
+            event={managingCoOrganizers}
+            onClose={() => setManagingCoOrganizers(null)}
+          />
+        )} */}
       </div>
     </div>
   );
